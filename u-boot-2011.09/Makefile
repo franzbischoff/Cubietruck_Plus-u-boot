@@ -505,7 +505,6 @@ fes:    spl_lib depend
 		@git show HEAD --pretty=format:"%H" | head -n 1 > cur.log
 		@../add_hash.sh -f sunxi_spl/fes_init/fes1.bin -m boot0
 		@$(TOPDIR)/tools/gen_check_sum sunxi_spl/fes_init/fes1.bin fes1_$(CONFIG_TARGET_NAME).bin > /dev/null
-		@cp -v fes1_$(CONFIG_TARGET_NAME).bin $(TOPDIR)/../../tools/pack/chips/$(CONFIG_TARGET_NAME)/bin/fes1_$(CONFIG_TARGET_NAME).bin
 
 boot0:  spl_lib depend
 		$(MAKE) -C sunxi_spl/boot0 all
@@ -518,11 +517,6 @@ ifdef CONFIG_STORAGE_MEDIA_MMC
 		@git show HEAD --pretty=format:"%H" | head -n 1 > cur.log
 		@../add_hash.sh -f sunxi_spl/boot0/boot0_sdcard.bin -m boot0
 		@$(TOPDIR)/tools/gen_check_sum sunxi_spl/boot0/boot0_sdcard.bin boot0_sdcard_$(TARGET).bin > /dev/null
-		@if [ -z "$(findstring $(OTA_TEST_NAME), $(SUNXI_MODE))" ]; then \
-			cp -v boot0_sdcard_$(CONFIG_TARGET_NAME).bin $(TOPDIR)/../../tools/pack/chips/$(CONFIG_TARGET_NAME)/bin/boot0_sdcard_$(CONFIG_TARGET_NAME).bin; \
-		else \
-			cp -v boot0_sdcard_$(CONFIG_TARGET_NAME).bin $(TOPDIR)/../../tools/pack/chips/$(CONFIG_TARGET_NAME)/bin/boot0_sdcard_$(CONFIG_TARGET_NAME)-$(SUNXI_MODE).bin; \
-		fi
 endif
 ifdef CONFIG_STORAGE_MEDIA_SPINOR
 		@git show HEAD --pretty=format:"%H" | head -n 1 > cur.log
@@ -539,11 +533,6 @@ sboot:  spl_lib depend
 		@git show HEAD --pretty=format:"%H" | head -n 1 > cur.log
 		@../add_hash.sh -f sunxi_spl/sbrom/sboot.bin -m sboot
 		@$(TOPDIR)/tools/gen_check_sum sunxi_spl/sbrom/sboot.bin sboot_$(CONFIG_TARGET_NAME).bin > /dev/null
-		@if [ -z "$(findstring $(OTA_TEST_NAME), $(SUNXI_MODE))" ]; then \
-			cp -v sboot_$(CONFIG_TARGET_NAME).bin $(TOPDIR)/../../tools/pack/chips/$(CONFIG_TARGET_NAME)/bin/sboot_$(CONFIG_TARGET_NAME).bin; \
-		else \
-			cp -v sboot_$(CONFIG_TARGET_NAME).bin $(TOPDIR)/../../tools/pack/chips/$(CONFIG_TARGET_NAME)/bin/sboot_$(CONFIG_TARGET_NAME)-$(SUNXI_MODE).bin; \
-		fi
 
 ifeq ($(CONFIG_SUNXI_SECURE_SYSTEM),y)
 ifeq ($(SUNXI_MODE),$(OTA_TEST_NAME))

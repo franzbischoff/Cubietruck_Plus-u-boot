@@ -1,25 +1,22 @@
 OUTPUT_FORMAT("elf32-littlearm", "elf32-littlearm", "elf32-littlearm")
 OUTPUT_ARCH(arm)
+ENTRY(_start)
 SECTIONS
 {
-	. = FES1ADDR;
+	. = SBROMSWADDR;
 	. = ALIGN(4);
 
-	.head   :
+	.head :
 	{
-		main/fes_head.o	(.rodata)
+		main/sbromsw_head.o (.rodata)
 	}
-	.hash	:
-	{
-		main/fes_hash.o (.data)
-	}
-	.config	:
-	{
-		main/fes_config.o (.data)
-	}
+        .hash :
+        {
+		main/sbromsw_hash.o  (.data)
+        }
 	.text :
 	{
-		main/fes1_entry.o (.text)
+		main/brom.o (.text)
 		*(.text)
 	}
 	. = ALIGN(16);
@@ -27,7 +24,7 @@ SECTIONS
 	. = ALIGN(16);
   	.data : { *(.data) }
 
-        . = ALIGN(4);
+	. = ALIGN(4);
 	.bss :
 	{
 	__bss_start = .;

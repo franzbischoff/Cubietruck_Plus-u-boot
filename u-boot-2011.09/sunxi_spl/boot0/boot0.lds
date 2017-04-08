@@ -9,6 +9,15 @@ SECTIONS
  {
   main/boot0_head.o (.rodata)
  }
+        .hash :
+        {
+                main/boot0_hash.o (.data)
+        }
+ .config :
+    {
+  main/boot0_config.o (.data)
+    }
+        . = ALIGN(1);
  .text :
  {
   main/boot0_entry.o (.text)
@@ -19,10 +28,10 @@ SECTIONS
  . = ALIGN(16);
    .data : { *(.data) }
 
- . = ALIGN(4);
+        . = ALIGN(4);
  .bss :
  {
- __bss_start = .;
+     __bss_start = .;
   *(.bss)
  }
  . = ALIGN(4);
