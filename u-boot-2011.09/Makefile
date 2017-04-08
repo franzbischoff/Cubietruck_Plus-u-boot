@@ -479,19 +479,6 @@ $(obj)u-boot-$(TARGET).bin:	$(obj)u-boot.bin
 		@git show HEAD --pretty=format:"%H" | head -n 1 > cur.log
 		@../add_hash.sh -f u-boot.bin -m uboot
 		@cp $(obj)u-boot.bin         $(obj)u-boot-$(CONFIG_TARGET_NAME).bin
-		@if [ -z "$(findstring _nor, $(CONFIG_TARGET_NAME))" ]; then \
-			if [ -z "$(findstring $(OTA_TEST_NAME), $(SUNXI_MODE))" ]; then \
-				cp -v $(obj)u-boot-$(CONFIG_TARGET_NAME).bin  $(TOPDIR)/../../tools/pack/chips/$(CONFIG_TARGET_NAME)/bin/u-boot-$(CONFIG_TARGET_NAME).bin; \
-			else \
-				cp -v $(obj)u-boot-$(CONFIG_TARGET_NAME).bin  $(TOPDIR)/../../tools/pack/chips/$(CONFIG_TARGET_NAME)/bin/u-boot-$(CONFIG_TARGET_NAME)-$(SUNXI_MODE).bin; \
-			fi \
-		else	\
-			if [ -z "$(findstring $(OTA_TEST_NAME), $(SUNXI_MODE))" ]; then \
-				cp -v $(obj)u-boot-$(CONFIG_TARGET_NAME).bin  $(TOPDIR)/../../tools/pack/chips/$(CONFIG_PLATFORM_NAME)/bin/u-boot-spinor-$(CONFIG_PLATFORM_NAME).bin; \
-			else \
-				cp -v $(obj)u-boot-$(CONFIG_TARGET_NAME).bin  $(TOPDIR)/../../tools/pack/chips/$(CONFIG_PLATFORM_NAME)/bin/u-boot-spinor-$(CONFIG_PLATFORM_NAME)-$(SUNXI_MODE).bin; \
-			fi \
-		fi
 
 GEN_UBOOT = \
 		UNDEF_SYM=`$(OBJDUMP) -x $(LIBBOARD) $(LIBS) | \
@@ -526,11 +513,6 @@ ifdef CONFIG_STORAGE_MEDIA_NAND
 		@git show HEAD --pretty=format:"%H" | head -n 1 > cur.log
 		@../add_hash.sh -f sunxi_spl/boot0/boot0_nand.bin -m boot0
 		@$(TOPDIR)/tools/gen_check_sum sunxi_spl/boot0/boot0_nand.bin boot0_nand_$(TARGET).bin > /dev/null
-		@if [ -z "$(findstring $(OTA_TEST_NAME), $(SUNXI_MODE))" ]; then \
-			cp -v boot0_nand_$(CONFIG_TARGET_NAME).bin $(TOPDIR)/../../tools/pack/chips/$(CONFIG_TARGET_NAME)/bin/boot0_nand_$(CONFIG_TARGET_NAME).bin; \
-		else \
-			cp -v boot0_nand_$(CONFIG_TARGET_NAME).bin $(TOPDIR)/../../tools/pack/chips/$(CONFIG_TARGET_NAME)/bin/boot0_nand_$(CONFIG_TARGET_NAME)-$(SUNXI_MODE).bin; \
-		fi
 endif
 ifdef CONFIG_STORAGE_MEDIA_MMC
 		@git show HEAD --pretty=format:"%H" | head -n 1 > cur.log
