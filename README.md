@@ -37,3 +37,9 @@ You need to copy the build binaries to corresponding directory:
 
   if you are booting form emmc, run:<br>
   $ sudo ./update_sys_config.sh emmc
+
+More details see :
+
+https://github.com/cubieboard/Cubietruck_Plus-products/tree/master/cb5/cb5-linaro-desktop-hdmi/overlay/root/boot-file
+https://github.com/cubieboard/Cubietruck_Plus-products/blob/master/cb5/cb5-linaro-desktop-hdmi/overlay/root/boot-file/update_sys_config.sh
+
