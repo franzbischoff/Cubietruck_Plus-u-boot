@@ -1,9 +1,23 @@
 
 **This is a simple guide to build uboot for Cubietruck Plus**
 
+# source code 
+
+If you want to use u-boot on SD card, make sure 
+"boot_normal=fatload mmc 0 40007800 uimage;bootm 40007800\0" \
+
+If you want to use u-boot on eMMC, make sure 
+"boot_normal=fatload mmc 2 40007800 uimage;bootm 40007800\0" \
+
+in u-boot-2011.09/include/configs/sun8iw6p1.h
+
+See https://github.com/cubieboard/Cubietruck_Plus-u-boot/blob/master/u-boot-2011.09/include/configs/sun8iw6p1.h#L331
+
+
 # build step:
 
   ./build.sh -p sun8iw6p1
+
 
 
 
@@ -18,14 +32,23 @@ Refer: https://github.com/cubieboard/Cubietruck_Plus-binaries
 You need to copy the build binaries to corresponding directory:
 
   Cubietruck_Plus-u-boot/u-boot-2011.09/boot0_sdcard_sun8iw6p1.bin  --> Cubietruck_Plus-binares/bin/raw/u-boot-spl-sun8iw6p1.bin<br>
+
+
+  For SD card
   Cubietruck_Plus-u-boot/u-boot-2011.09/u-boot-sun8iw6p1.bin        --> Cubietruck_Plus-binares/bin/raw/u-boot-sun8iw6p1.bin 
+	
+  For eMMC
+  Cubietruck_Plus-u-boot/u-boot-2011.09/u-boot-sun8iw6p1.bin        --> Cubietruck_Plus-binares/bin/raw/u-boot-sun8iw6p1-card2.bin 
 
 * Way 2: (this way is used for assuming you have booting system in Cubietruck Plus)
 
 1. copy the build binaries to Cubietruck Plus system
 
   Cubietruck_Plus-u-boot/u-boot-2011.09/boot0_sdcard_sun8iw6p1.bin  -->  /root/boot-file/u-boot-spl-sun8iw6p1.bin
+  For SD card
   Cubietruck_Plus-u-boot/u-boot-2011.09/u-boot-sun8iw6p1.bin        -->  /root/boot-file/u-boot-sun8iw6p1.bin
+  For eMMC
+  Cubietruck_Plus-u-boot/u-boot-2011.09/u-boot-sun8iw6p1.bin        -->  /root/boot-file/u-boot-sun8iw6p1-card2.bin
 
 
 2. Update uboot in Cubietruck Plus system
