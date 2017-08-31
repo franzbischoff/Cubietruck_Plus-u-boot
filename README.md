@@ -66,3 +66,17 @@ More details see :
 https://github.com/cubieboard/Cubietruck_Plus-products/tree/master/cb5/cb5-linaro-desktop-hdmi/overlay/root/boot-file
 https://github.com/cubieboard/Cubietruck_Plus-products/blob/master/cb5/cb5-linaro-desktop-hdmi/overlay/root/boot-file/update_sys_config.sh
 
+# rootfs run on SSD or HDD 
+
+Format SSD or HDD,then copy rootfs into disk.
+Change mmc_root=/dev/mmcblk0p2 to mmc_root=/dev/sda1 and add rootdelay=5 setting in u-boot-2011.09/include/configs/sun8iw6p1.h.
+
+
+-       "mmc_root=/dev/mmcblk0p2\0" \
++       "mmc_root=/dev/sda1\0" \
+        "loglevel=8\0" \
+-       "setargs_mmc=setenv bootargs console=${console1} console=${console} root=${mmc_root} " \
++       "setargs_mmc=setenv bootargs console=${console1} rootdelay=5 console=${console} root=${mmc_root} " \
+
+
+Rebuild source code and update u-boot binaries. 
